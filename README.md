@@ -17,6 +17,17 @@
 [![Awesome](https://awesome.re/badge.svg)](https://marllib.readthedocs.io/en/latest/resources/awesome.html)
 
 
+---
+
+:heavy_exclamation_mark: This is a fork of the original [MARLlib](https://github.com/Replicable-MARL/MARLlib) 
+repository optimized for use 
+with [Gym-LQR](https://github.com/cor3bit/gym-lqr) multi-agent environment.
+
+---
+
+
+
+
 | :exclamation:  News |
 |:-----------------------------------------|
 | **March 2023** We are excited to announce that a major update has just been released. For detailed version information, please refer to the [version info](https://github.com/Replicable-MARL/MARLlib/releases/tag/1.0.2).|
