@@ -1,0 +1,14 @@
+env: gymlqr
+
+env_args:
+  env_id: "DI"  # scale
+  n_agents: 10  # scale
+  dt: 0.1
+  deterministic: True  # noise
+  noise_multiplier: 1.0  # noise
+  communication_type: "fc"  # communication constraints
+  communication_map: null  # communication constraints
+
+mask_flag: False
+global_state_flag: False
+opp_action_in_cc: False

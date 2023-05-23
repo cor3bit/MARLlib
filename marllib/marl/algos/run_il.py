@@ -145,7 +145,7 @@ def run_il(exp_info, env, model, stop=None):
 
     run_config = {
         "seed": int(exp_info["seed"]),
-        "env": exp_info["env"] + "_" + exp_info["env_args"]["map_name"],
+        "env": exp_info["env"], #+ "_" + exp_info["env_args"]["map_name"],
         "num_gpus_per_worker": exp_info["num_gpus_per_worker"],
         "num_gpus": exp_info["num_gpus"],
         "num_workers": exp_info["num_workers"],

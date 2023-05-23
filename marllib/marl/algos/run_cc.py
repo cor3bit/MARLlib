@@ -30,7 +30,7 @@ torch, nn = try_import_torch()
 
 
 def run_cc(exp_info, env, model, stop=None):
-    ray.init(local_mode=exp_info["local_mode"])
+    ray.init(local_mode=exp_info["local_mode"], log_to_driver=False)
 
     ########################
     ### environment info ###
@@ -116,7 +116,7 @@ def run_cc(exp_info, env, model, stop=None):
 
     run_config = {
         "seed": int(exp_info["seed"]),
-        "env": exp_info["env"] + "_" + exp_info["env_args"]["map_name"],
+        "env": exp_info["env"], #+ "_" + exp_info["env_args"]["map_name"],
         "num_gpus_per_worker": exp_info["num_gpus_per_worker"],
         "num_gpus": exp_info["num_gpus"],
         "num_workers": exp_info["num_workers"],
@@ -126,7 +126,8 @@ def run_cc(exp_info, env, model, stop=None):
         },
         "framework": exp_info["framework"],
         "evaluation_interval": exp_info["evaluation_interval"],
-        "simple_optimizer": False  # force using better optimizer
+        "simple_optimizer": False,  # force using better optimizer
+        "log_level": "ERROR",
     }
 
     stop_config = {
@@ -163,7 +164,7 @@ def run_cc(exp_info, env, model, stop=None):
     ### run script ###
     ##################
 
-    results = POlICY_REGISTRY[exp_info["algorithm"]](model, exp_info, run_config, env_info, stop_config,
-                                                     restore_config)
+    results = POlICY_REGISTRY[exp_info["algorithm"]](
+        model, exp_info, run_config, env_info, stop_config, restore_config)
 
     ray.shutdown()

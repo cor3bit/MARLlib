@@ -32,7 +32,7 @@ from ray.rllib.env.multi_agent_env import MultiAgentEnv
 from ray.tune import register_env
 from copy import deepcopy
 from tabulate import tabulate
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Optional
 import yaml
 import os
 import sys
@@ -71,7 +71,7 @@ def set_ray(config: Dict):
 
 def make_env(
         environment_name: str,
-        map_name: str,
+        map_name: Optional[str] = None,
         force_coop: bool = False,
         **env_params
 ) -> Tuple[MultiAgentEnv, Dict]:
@@ -88,11 +88,16 @@ def make_env(
     """
 
     # default config
-    env_config_file_path = os.path.join(os.path.dirname(__file__),
-                                        "../envs/base_env/config/{}.yaml".format(environment_name))
+    env_config_file_path = os.path.join(
+        os.path.dirname(__file__),
+        "../envs/base_env/config/{}.yaml".format(environment_name),
+    )
+
     if not os.path.exists(env_config_file_path):
-        env_config_file_path = os.path.join(os.path.dirname(__file__),
-                                            "../../examples/config/env_config/{}.yaml".format(environment_name))
+        env_config_file_path = os.path.join(
+            os.path.dirname(__file__),
+            "../../examples/config/env_config/{}.yaml".format(environment_name),
+        )
 
     with open(env_config_file_path, "r") as f:
         env_config_dict = yaml.load(f, Loader=yaml.FullLoader)
@@ -140,7 +145,7 @@ def make_env(
             "environment \"{}\" not installed properly or not registered yet, please see the Error_Log below".format(
                 env_config["env"]))
 
-    env_reg_name = env_config["env"] + "_" + env_config["env_args"]["map_name"]
+    env_reg_name = env_config["env"]  # + "_" + env_config["env_args"]["map_name"]
 
     if env_config["force_coop"]:
         register_env(env_reg_name, lambda _: COOP_ENV_REGISTRY[env_config["env"]](env_config["env_args"]))

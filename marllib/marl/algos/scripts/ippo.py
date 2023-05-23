@@ -76,6 +76,8 @@ def run_ippo(model: Any, exp: Dict, run: Dict, env: Dict,
     vf_loss_coeff = _param["vf_loss_coeff"]
     entropy_coeff = _param["entropy_coeff"]
 
+    # normalize_actions = _param["normalize_actions"]
+
     config = {
         "batch_mode": batch_mode,
         "train_batch_size": train_batch_size,
@@ -94,14 +96,16 @@ def run_ippo(model: Any, exp: Dict, run: Dict, env: Dict,
             "max_seq_len": episode_limit,
             "custom_model_config": merge_dicts(exp, env),
         },
+
+        "normalize_actions": False,
     }
 
     config.update(run)
 
     algorithm = exp["algorithm"]
-    map_name = exp["env_args"]["map_name"]
+    # map_name = exp["env_args"]["map_name"]
     arch = exp["model_arch_args"]["core_arch"]
-    RUNNING_NAME = '_'.join([algorithm, arch, map_name])
+    RUNNING_NAME = '_'.join([algorithm, arch]) #, map_name
 
     if restore is not None:
         with open(restore["params_path"], 'r') as JSON:

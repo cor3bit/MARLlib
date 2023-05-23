@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# MAPPO parameters
+# PPO parameters
 
 # Detailed explanation for each hyper parameter can be found in ray/rllib/agents/ppo/ippo.py
 
@@ -36,6 +36,4 @@ algo_args:
   clip_param: 0.3
   vf_clip_param: 10.0
   batch_mode: "truncate_episodes"
-  normalize_actions: False
-
 

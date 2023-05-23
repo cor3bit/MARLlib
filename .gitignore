@@ -1,3 +1,7 @@
+examples/exp_results/*
+experiments/exp_results/*
+gym_lqr/*
+
 .idea/*
 
 # Byte-compiled / optimized / DLL files
